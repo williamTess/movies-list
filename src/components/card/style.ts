@@ -47,9 +47,14 @@ const CardRemoveButton = styled.span<{
   margin: 2px;
   padding: 3px 6px;
   font-size: ${(props) => (props.big ? "18px" : "14px")};
-  background: ${colors.red};
+  color: ${colors.red};
+  border: solid ${colors.red};
   border-radius: 20px;
-  color: ${colors.white};
+  transition: 0.5s;
+  &:hover {
+    color: ${colors.white};
+    background: ${colors.red};
+  }
 `;
 
 const CategoryContainer = styled.div`

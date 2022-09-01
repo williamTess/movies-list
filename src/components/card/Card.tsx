@@ -87,7 +87,7 @@ const Card = (props: Props) => {
         </s.VoteContainer>
         <s.RemoveButtonContainer>
           <s.CardRemoveButton big={big} onClick={onClickRemove}>
-            Test remove
+            Supprimer le film
           </s.CardRemoveButton>
         </s.RemoveButtonContainer>
       </s.CardContent>
