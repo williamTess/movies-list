@@ -5,7 +5,7 @@ This is a movie's listing, you can like, dislike or remove the movies but you ca
 
 ## Lauch project
 ### Data
-You can change the data-set by changing the file `Data/movies.js'
+You can change the data-set by changing the file `Data/movies.js`
 
 ### `yarn` & `yarn start`
 Launch the project
