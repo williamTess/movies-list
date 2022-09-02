@@ -5,7 +5,7 @@
 
 ## Lauch project
 ### Data
-  You can change the data-set by changing the file `Data/movies.js`
+  You can change the data-set by changing the file `data/movies.ts`
 
 ### Launch the project
   `yarn` & `yarn start`
