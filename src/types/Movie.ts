@@ -1,3 +1,5 @@
+import { Vote } from "../utils/enums";
+
 export interface Movie {
   id: string;
   title: string;
@@ -5,4 +7,5 @@ export interface Movie {
   likes: number;
   dislikes: number;
   image: string;
+  vote: Vote;
 }

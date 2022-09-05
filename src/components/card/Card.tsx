@@ -21,8 +21,8 @@ interface Props {
 
 const Card = (props: Props) => {
   const { movie, numberCardsPerPage } = props;
-  const { title, likes, dislikes, image, category } = movie;
-  const [voteIndex, setVoteIndex] = useState<Vote>(Vote.NONE);
+  const { title, likes, dislikes, image, category, vote } = movie;
+  const [voteIndex, setVoteIndex] = useState<Vote>(vote);
   const rate = percentage(likes, dislikes);
   const dispatch = useAppDispatch();
   const big = numberCardsPerPage === 4;
@@ -43,19 +43,19 @@ const Card = (props: Props) => {
     dispatch(remove(movie));
   };
 
-  const vote = (value: Vote) => {
+  const voteAction = (value: Vote) => {
     if (value === Vote.UP) {
-      if (voteIndex !== Vote.UP) {
-        voteIndex === Vote.DOWN && dispatch(undislike(movie));
-        dispatch(like(movie));
-        setVoteIndex(value);
-      }
+      voteIndex === Vote.DOWN && dispatch(undislike(movie));
+      dispatch(like(movie));
+      setVoteIndex(value);
     } else if (value === Vote.DOWN) {
-      if (voteIndex !== Vote.DOWN) {
-        voteIndex === Vote.UP && dispatch(unlike(movie));
-        dispatch(dislike(movie));
-        setVoteIndex(value);
-      }
+      voteIndex === Vote.UP && dispatch(unlike(movie));
+      dispatch(dislike(movie));
+      setVoteIndex(value);
+    } else if (value === Vote.NONE) {
+      voteIndex === Vote.UP && dispatch(unlike(movie));
+      voteIndex === Vote.DOWN && dispatch(undislike(movie));
+      setVoteIndex(value);
     }
   };
 
@@ -72,16 +72,18 @@ const Card = (props: Props) => {
         <s.VoteContainer big={big}>
           <ButtonVote
             direction={Vote.UP}
-            color={voteIndex === Vote.UP ? colors.blueLight : colors.grey}
+            color={vote === Vote.UP ? colors.blueLight : colors.grey}
             value={likes}
-            onClick={() => vote(Vote.UP)}
+            onClick={() => voteAction(vote === Vote.UP ? Vote.NONE : Vote.UP)}
             size={big ? 50 : 40}
           />
           <ButtonVote
             direction={Vote.DOWN}
-            color={voteIndex === Vote.DOWN ? colors.pinkLight : colors.grey}
+            color={vote === Vote.DOWN ? colors.pinkLight : colors.grey}
             value={dislikes}
-            onClick={() => vote(Vote.DOWN)}
+            onClick={() =>
+              voteAction(vote === Vote.DOWN ? Vote.NONE : Vote.DOWN)
+            }
             size={big ? 50 : 40}
           />
         </s.VoteContainer>

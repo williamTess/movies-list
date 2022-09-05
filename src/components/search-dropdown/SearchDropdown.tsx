@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useAppSelector } from "../../hooks/useRedux";
-import { selectMovieCategories } from "../../redux/movie/selectors";
 
 interface Props {
   onClickCategory: (value: string) => void;
@@ -14,9 +13,13 @@ interface Props {
 const SearchDropdown = (props: Props) => {
   const { onClickCategory } = props;
   const [categorySelected, setCategorySelected] = useState<string>("");
-  const categories = useAppSelector((state) => selectMovieCategories(state));
+  const categories: string[] = useAppSelector(
+    (state) => state.movie.categories
+  );
 
   const RenderOptions = () => {
+    if (!categories) return null;
+
     return categories.map((category) => (
       <MenuItem key={category} value={category}>
         {category}

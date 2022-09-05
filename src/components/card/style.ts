@@ -7,7 +7,7 @@ const Card = styled.div<{ big: boolean }>`
   box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   margin: 10px;
-  min-width: 375px;
+  min-width: ${(props) => (props.big ? "500px" : "450px")};
   ${(props) => (props.big ? "flex: 0 0 40%;" : "flex: 0 0 20%;")};
 `;
 
@@ -21,7 +21,7 @@ const CardContent = styled.div`
 `;
 
 const CardImage = styled.div`
-  flex: 0 0 25%;
+  width: 35%;
 `;
 
 const CardRate = styled.div`
@@ -77,7 +77,7 @@ const CategoryTile = styled.div<{
 
 const Image = styled.img`
   width: 100%;
-  display: block;
+  height: 100%;
 `;
 
 const RemoveButtonContainer = styled.div`

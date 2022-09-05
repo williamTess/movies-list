@@ -31,19 +31,3 @@ export const selectMovieByFilter = createSelector(
     return { moviesFiltered: filteredMovies[page - 1], movieLen: len };
   }
 );
-
-export const selectMovieCategories = createSelector(
-  [(state: RootState) => state.movie.movies],
-  (movies: Movie[]) => {
-    const categories: string[] = [];
-    movies.forEach((movie) =>
-      movie.category.forEach((catego) => categories.push(catego))
-    );
-
-    const uniqueArray = categories.filter(function (item, pos, self) {
-      return self.indexOf(item) === pos;
-    });
-
-    return uniqueArray;
-  }
-);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/card/Card";
 import FilterNumberItems from "../../components/filter-number-items/FilterNumberItems";
+import NoMovies from "../../components/no-movies/NoMovies";
 import Pages from "../../components/pages/Pages";
 import SearchDropdown from "../../components/search-dropdown/SearchDropdown";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 import { selectMovieByFilter } from "../../redux/movie/selectors";
-import { getMovies } from "../../redux/movie/thunks";
+import { getCategories, getMovies } from "../../redux/movie/thunks";
 import { roundUp } from "../../utils/utils";
 import { s } from "./style";
 
@@ -20,6 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getMovies());
+    dispatch(getCategories());
   }, [dispatch]);
 
   console.log("test");
@@ -35,6 +37,7 @@ const Home = () => {
 
   const onClickCategory = (value: string) => {
     setCategory(value);
+    setPage(1);
   };
 
   return (
@@ -47,13 +50,17 @@ const Home = () => {
         <SearchDropdown onClickCategory={onClickCategory} />
       </s.FilterContainer>
       <s.CardsContainer>
-        {moviesFiltered.map((movie) => (
-          <Card
-            key={movie.id}
-            movie={movie}
-            numberCardsPerPage={numberItemPerPage}
-          />
-        ))}
+        {moviesFiltered ? (
+          moviesFiltered.map((movie) => (
+            <Card
+              key={movie.id}
+              movie={movie}
+              numberCardsPerPage={numberItemPerPage}
+            />
+          ))
+        ) : (
+          <NoMovies />
+        )}
       </s.CardsContainer>
       <s.PageContainer>
         <Pages
